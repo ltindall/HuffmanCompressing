@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2C6B19FC1730A1970082D5F5 /* HuffmanCompressing.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C6B19FB1730A1970082D5F5 /* HuffmanCompressing.1 */; };
+		2CEAECD51732025A000169C2 /* compress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAECD31732025A000169C2 /* compress.cpp */; };
+		2CEAECD8173211C5000169C2 /* HCNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAECD6173211C5000169C2 /* HCNode.cpp */; };
+		2CEAECDB1732153E000169C2 /* HCTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CEAECD91732153E000169C2 /* HCTree.cpp */; };
 		2CFC3DB81731DEBE00B26200 /* BitOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC3DB61731DEBE00B26200 /* BitOutputStream.cpp */; };
 		2CFC3DBB1731E9A900B26200 /* BitInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC3DB91731E9A900B26200 /* BitInputStream.cpp */; };
 /* End PBXBuildFile section */
@@ -30,6 +33,9 @@
 		2C6B19FB1730A1970082D5F5 /* HuffmanCompressing.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = HuffmanCompressing.1; sourceTree = "<group>"; };
 		2C6B1A021730A1C90082D5F5 /* HCNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HCNode.hpp; sourceTree = "<group>"; };
 		2C6B1A031730A1C90082D5F5 /* HCTree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HCTree.hpp; sourceTree = "<group>"; };
+		2CEAECD31732025A000169C2 /* compress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = compress.cpp; sourceTree = "<group>"; };
+		2CEAECD6173211C5000169C2 /* HCNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HCNode.cpp; sourceTree = "<group>"; };
+		2CEAECD91732153E000169C2 /* HCTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HCTree.cpp; sourceTree = "<group>"; };
 		2CFC3DB41731C9AD00B26200 /* BitOutputStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BitOutputStream.hpp; sourceTree = "<group>"; };
 		2CFC3DB51731C9AD00B26200 /* BitInputStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BitInputStream.hpp; sourceTree = "<group>"; };
 		2CFC3DB61731DEBE00B26200 /* BitOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitOutputStream.cpp; sourceTree = "<group>"; };
@@ -67,12 +73,15 @@
 			isa = PBXGroup;
 			children = (
 				2CFC3DB41731C9AD00B26200 /* BitOutputStream.hpp */,
+				2CFC3DB61731DEBE00B26200 /* BitOutputStream.cpp */,
 				2CFC3DB51731C9AD00B26200 /* BitInputStream.hpp */,
 				2CFC3DB91731E9A900B26200 /* BitInputStream.cpp */,
 				2C6B1A021730A1C90082D5F5 /* HCNode.hpp */,
+				2CEAECD6173211C5000169C2 /* HCNode.cpp */,
 				2C6B1A031730A1C90082D5F5 /* HCTree.hpp */,
+				2CEAECD91732153E000169C2 /* HCTree.cpp */,
 				2C6B19FB1730A1970082D5F5 /* HuffmanCompressing.1 */,
-				2CFC3DB61731DEBE00B26200 /* BitOutputStream.cpp */,
+				2CEAECD31732025A000169C2 /* compress.cpp */,
 			);
 			path = HuffmanCompressing;
 			sourceTree = "<group>";
@@ -130,6 +139,9 @@
 			files = (
 				2CFC3DB81731DEBE00B26200 /* BitOutputStream.cpp in Sources */,
 				2CFC3DBB1731E9A900B26200 /* BitInputStream.cpp in Sources */,
+				2CEAECD51732025A000169C2 /* compress.cpp in Sources */,
+				2CEAECD8173211C5000169C2 /* HCNode.cpp in Sources */,
+				2CEAECDB1732153E000169C2 /* HCTree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

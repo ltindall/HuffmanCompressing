@@ -47,6 +47,9 @@ public:
      */
     int readInt();
 
+    /** Check for end of file
+     */
+    bool eof();
 
 };
 

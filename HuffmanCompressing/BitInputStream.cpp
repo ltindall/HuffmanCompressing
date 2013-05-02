@@ -33,7 +33,7 @@ int BitInputStream::readByte()
 
 int BitInputStream::readInt()
 {
-    int i,temp;
+    int i=0,temp;
     for (int j=0;j<4;j++)
     {
         if (in.eof())
@@ -43,4 +43,9 @@ int BitInputStream::readInt()
         i|=temp;
     }
     return i;
+}
+
+bool BitInputStream::eof()
+{
+    return in.eof();
 }

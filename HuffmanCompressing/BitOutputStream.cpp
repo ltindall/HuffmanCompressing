@@ -37,7 +37,6 @@ void BitOutputStream::flush()
     if (buf)
     {
         out.put(buf);
-        out.flush();
         buf=bufi=0;
     }
 }
