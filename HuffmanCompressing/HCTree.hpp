@@ -3,6 +3,7 @@
 
 #include <queue>
 #include <vector>
+#include <algorithm>
 #include "HCNode.hpp"
 #include "BitInputStream.hpp"
 #include "BitOutputStream.hpp"
@@ -57,6 +58,51 @@ public:
      *  tree, and initialize root pointer and leaves vector.
      */
     int decode(BitInputStream& in) const;
+    
+    /** Compress the Huffman tree and write the header
+     *  The first byte of the header record number of symbols appeared in the text
+     *  Next is an array recording the appeared symbol in the order of
+     *  left-to-right as it appeared in the Huffman tree
+     *  (assuming 0 is always the left edge)
+     *  The last array records the depth of each leaves in the order
+     *  from left-to-right (same as the second array)
+     *  it takes 2m(all the symbols appeared in the text)+1 bytes to write
+     *  a header
+     */
+    void writeHeader(BitOutputStream& out);
+    
+    /** reconstruct the Huffman tree for decoding
+     *  return the size of the text
+     */
+    int readHeader(BitInputStream & in);
+    
+private:    
+    /** Recursively print out the leaves from the left to right
+     */
+    void printLeaves(HCNode *&t,int depth, BitOutputStream &out) const;
+    
+    /** Clear the whole tree
+     */
+    void makeEmpty(HCNode *&t);
+    
+    /** Recursively search for the root from the leaf and encode the byte from
+     *  the root
+     */
+    
+    void bitEncode(HCNode *&t,bool c1t,BitOutputStream& out) const;
+    
+};
+
+
+/** define a linkedList to store every leaf for the reconstruction of
+ *  the Huffman tree
+ */
+class linkedNode
+{
+public:
+    HCNode* node;
+    linkedNode* next;
+    linkedNode(HCNode* node):node(node),next(0){};
 };
 
 #endif // HCTREE_HPP

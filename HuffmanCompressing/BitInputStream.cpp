@@ -12,7 +12,7 @@ int BitInputStream::readBit()
 {
     if (bufi==8)
     {
-        if(in.eof())
+        if(eof())
             return -1;
         buf=in.get();
         bufi=0;
@@ -26,7 +26,7 @@ int BitInputStream::readBit()
 
 int BitInputStream::readByte()
 {
-    if(in.eof())
+    if(eof())
         return -1;
     return in.get();
 }
@@ -36,7 +36,7 @@ int BitInputStream::readInt()
     int i=0,temp;
     for (int j=0;j<4;j++)
     {
-        if (in.eof())
+        if (eof())
             return -1;
         temp=in.get();
         temp<<=((3-j)*8);
@@ -47,5 +47,8 @@ int BitInputStream::readInt()
 
 bool BitInputStream::eof()
 {
+    in.get();
+    in.unget();
     return in.eof();
+        
 }

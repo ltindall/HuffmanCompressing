@@ -80,8 +80,8 @@
 				2CEAECD6173211C5000169C2 /* HCNode.cpp */,
 				2C6B1A031730A1C90082D5F5 /* HCTree.hpp */,
 				2CEAECD91732153E000169C2 /* HCTree.cpp */,
-				2C6B19FB1730A1970082D5F5 /* HuffmanCompressing.1 */,
 				2CEAECD31732025A000169C2 /* compress.cpp */,
+				2C6B19FB1730A1970082D5F5 /* HuffmanCompressing.1 */,
 			);
 			path = HuffmanCompressing;
 			sourceTree = "<group>";

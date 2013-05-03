@@ -7,22 +7,14 @@
 //
 
 #include "HCNode.hpp"
-/** less-than comparator returns true if
- *  count of this node is less than that of other node
- *  or counts are equal but the symbol of this node is less than other node
+/** less-than comparator compares priority
+ *  smaller counts have higher priority
+ *  if counts are equal, use symbol to break tie
  */
 bool HCNode::operator<(const HCNode& other)
 {
-    if (count<other.count)
-        return true;
-    else if (count==other.count)
-    {
-        
-        if (symbol<other.symbol)
-            return true;
-        else return false;
-    }
-    else return false;
+    if (count!=other.count) return count>other.count;
+    return symbol<other.symbol;
 }
 
 bool comp(HCNode* one, HCNode* other)
