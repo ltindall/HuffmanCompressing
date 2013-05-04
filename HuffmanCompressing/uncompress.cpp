@@ -15,12 +15,18 @@ int main(int argc, char *argv[])
 {
     ifstream infile;
     ofstream outfile;
-    outfile.open(argv[2],ios_base::binary);
-    BitOutputStream out(outfile);
-    HCTree tree;
     infile.open(argv[1],ios_base::binary);
+    if(! infile.good() )
+        cerr<<"Can't open input file!"<<endl;
     BitInputStream in(infile);
-        
+    
+    outfile.open(argv[2],ios_base::binary);
+    if(! outfile.good() )
+        cerr<<"Can't open output file!"<<endl;
+    BitOutputStream out(outfile);
+    
+    HCTree tree;
+    
     //first read the header
     int textsize=tree.readHeader(in);
     for (int i=0;i<textsize;i++)
