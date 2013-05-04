@@ -11,7 +11,7 @@ using namespace std;
 class BitInputStream {
 private:
     istream& in;  // the istream to delegate to
-    char buf;     // the buffer of bits
+    unsigned char buf;     // the buffer of bits
   //bitset<8> buf;
     int bufi;     // the bit buffer index
 

@@ -10,17 +10,17 @@
 
 void BitOutputStream::writeBit(int bit)
 {
-#define test1
-#ifndef test1
-#define test1
-    cout<<bit;
-#endif
     
     if (bufi==8)
         flush();
-    buf|=bit;
     buf<<=1;
+    buf|=bit;
     bufi++;
+#define test1
+#ifndef test1
+#define test1
+    cout<<buf;
+#endif
 }
 
 void BitOutputStream::writeByte(int b)

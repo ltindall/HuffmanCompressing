@@ -26,16 +26,20 @@ void HCTree::build(const vector<int>& freqs)
     }
     
     HCNode *n1,*n2,*nodeNew;
+    
     /** build the Huffman tree
      */
-
     while(1)
     {
+        //first get rid of the byte that is not used
         while((!pq.empty())&&(pq.top()->count)==0)
             pq.pop();
+        
+        
         if (pq.size()<=1)
             break;
         else{
+            //add the count of the two node together to form their parent node
             n1=pq.top();
             pq.pop();
             n2=pq.top();
@@ -59,13 +63,17 @@ void HCTree::writeHeader(BitOutputStream& out)
 {
     byte symbolnumber=0;
     int textsize=0;
+    
+    //if the original file is empty don't write anything
     if(root==nullptr)
     {
-        out.writeByte(0);
+        return;
         
     }
+    
     else
     {
+        //sum of the total bytes being used and the size of the text
         for(int i=0;i<256;i++)
         {
             if(leaves[i]->count)
@@ -74,6 +82,8 @@ void HCTree::writeHeader(BitOutputStream& out)
                 textsize+=leaves[i]->count;
             }
         }
+        
+        //write bytes number appeared in the text, byte symbol, position in the tree, and the total text size
         out.writeByte(symbolnumber);
         printLeaves(root,0,out);
         out.writeInt(textsize);
@@ -82,57 +92,74 @@ void HCTree::writeHeader(BitOutputStream& out)
 
 int HCTree::readHeader(BitInputStream& in)
 {
+    //first read the size of the total bytes being used
     int size = in.readByte();
-    int deepest=0;
-    linkedNode* header;
-    linkedNode* ptr;
-    if (size==0)
-        cerr<<"Empty file"<<endl;
-    for (int i=0;i<size;i++)
-    {
-        byte symbol= in.readByte();
-        int depth=in.readByte();
-        
-        //Use count to store the depth information of the leaf;
-        HCNode * nodeNew= new HCNode(depth,symbol);
-        leaves.push_back(nodeNew);
-        
-        //Use a linkedlist to store depth and symbol
-        if(header==nullptr)
-            header=ptr = new linkedNode(nodeNew);
-        else
-        {
-            ptr->next=new linkedNode(nodeNew);
-            ptr=ptr->next;
-        }
-        if(depth>deepest)
-            deepest=depth;
-    }
     
-    //reconstruct the tree
-    while(deepest)
+    int deepest=0;
+    linkedNode* header=nullptr;
+    linkedNode* ptr;
+    
+    //if eof reached when reading file, the file is empty
+    if (size==-1)
     {
-        ptr=header;
-        while(ptr->next!=nullptr)
-        {
-            
-            if((ptr->node)->count==deepest)
-            {
-                HCNode *nodeNew=new HCNode(deepest-1,0,ptr->node,(ptr->next)->node);
-                (ptr->node)->p=nodeNew;
-                ((ptr->next)->node)->p=nodeNew;
-                linkedNode* temp=ptr->next;
-                ptr->node=nodeNew;
-                ptr->next=(ptr->next)->next;
-                delete temp;
-            }
-            ptr=ptr->next;
-        }
-        deepest--;
+        cerr<<"Empty file"<<endl;
+        return 0;
     }
-    root=ptr->node;
-    delete ptr;
+    else
+    {
+        for (int i=0;i<size;i++)
+        {
+            byte symbol= in.readByte();
+            int depth=in.readByte();
+        
+            //Use count to store the depth information of the leaf;
+            HCNode * nodeNew= new HCNode(depth,symbol);
+            leaves[symbol]=(nodeNew);
+        
+            //Use a linkedlist to store depth and symbol
+            if(header==nullptr)
+            {
+                header=ptr = new linkedNode(nodeNew);
+            }
+            else
+            {
+                ptr->next=new linkedNode(nodeNew);
+                ptr=ptr->next;
+            }
+            //record the deepest depth the tree has
+            if(depth>deepest)
+                deepest=depth;
+        }
+    
+        //reconstruct the tree
+        while(deepest)
+        {
+            ptr=header;
+            while(ptr->next!=nullptr)
+            {
+            
+                //replace the two deepest nodes with a new node in the linkedList, the new node has depth deepest-1
+                if((ptr->node)->count==deepest)
+                {
+                    HCNode *nodeNew=new HCNode(deepest-1,0,ptr->node,(ptr->next)->node);
+                    (ptr->node)->p=nodeNew;
+                    ((ptr->next)->node)->p=nodeNew;
+                    linkedNode* temp=ptr->next;
+                    ptr->node=nodeNew;
+                    ptr->next=(ptr->next)->next;
+                    delete temp;
+                }
+                if(ptr->next)
+                {
+                ptr=ptr->next;
+                }
+            }
+            deepest--;
+        }
+        root=ptr->node;
+        delete ptr;
     return in.readInt();
+    }
 }
 
 void HCTree::printLeaves(HCNode *&t, int depth, BitOutputStream &out) const
@@ -208,7 +235,8 @@ int HCTree::decode (BitInputStream& in) const
             HCNode* node=root;
             while(node->c0!=nullptr)
             {
-                if(in.readBit())
+                int t;
+                if((t=in.readBit()))
                 {
                     node=node->c1;
                 }

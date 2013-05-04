@@ -10,27 +10,33 @@
 #include <fstream>
 #include <iomanip>
 using namespace std;
-vector<int> freqs(256,0);
 
 int main(int argc, char * argv[])
 {
-/** First read in the file and count the freq of every byte
- */
+    
+
     ifstream infile;
     ofstream outfile;
+    vector<int> freqs(256,0);
+    HCTree tree;
+    
     infile.open(argv[1],ios_base::binary);
+    if(! infile.good() )
+        cerr<<"Can't open input file!"<<endl;
     BitInputStream in(infile);
+    
+    /** First read in the file and count the freq of every byte
+     */
     unsigned char temp;
-    while(!in.eof())
+    while(1)
     {
         temp=in.readByte();
-        for(int i=0;i<256;i++)
-        {
-            if (temp==i)
-                freqs[i]++;
-        }
+        if(in.eof())
+            break;
+        freqs[temp]++;
     }
     infile.close();
+
 #define testinput
 #ifndef testinput
 #define testinput
@@ -41,19 +47,28 @@ int main(int argc, char * argv[])
             cout<<endl;
     }
 #endif
-
-    HCTree tree;
+    //build tree;
     tree.build(freqs);
     
     outfile.open(argv[2],ios_base::binary);
     BitOutputStream out(outfile);
+    
+    if(! outfile.good() )
+        cerr<<"Can't open output file!"<<endl;
+    
+    //write header to target file
     tree.writeHeader(out);
+    
+    //reopen input file, and encode the byte, write to the target file the encoded bits
     infile.open(argv[1],ios_base::binary);
-    while(!in.eof())
+    while(1)
     {
-        tree.encode(in.readByte(),out);
+        temp = in.readByte();
+        if(in.eof())
+            break;
+        tree.encode(temp,out);
     }
-    //flush the Bit buffer
+    //flush the last bit buffer
     out.flush();
     infile.close();
     outfile.close();

@@ -19,7 +19,12 @@ int BitInputStream::readBit()
     }
     bufi++;
     int i = buf>>7;
-    buf<<=1;
+    buf=buf<<1;
+#define test4
+#ifndef test4
+#define test4
+    cout<<i<<endl;
+#endif
     return i;
     
 }
@@ -47,8 +52,6 @@ int BitInputStream::readInt()
 
 bool BitInputStream::eof()
 {
-    in.get();
-    in.unget();
     return in.eof();
         
 }

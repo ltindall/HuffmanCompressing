@@ -85,10 +85,12 @@ private:
      */
     void makeEmpty(HCNode *&t);
     
+    
     /** Recursively search for the root from the leaf and encode the byte from
      *  the root
+     *  if t is the 0child of its parent, set c1t false
+     *  otherwise set true
      */
-    
     void bitEncode(HCNode *&t,bool c1t,BitOutputStream& out) const;
     
 };
@@ -102,7 +104,7 @@ class linkedNode
 public:
     HCNode* node;
     linkedNode* next;
-    linkedNode(HCNode* node):node(node),next(0){};
+    linkedNode(HCNode* node):node(node),next(nullptr){};
 };
 
 #endif // HCTREE_HPP
