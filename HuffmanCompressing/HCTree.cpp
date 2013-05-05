@@ -81,6 +81,11 @@ void HCTree::writeHeader(BitOutputStream& out)
                 symbolnumber++;
                 textsize+=leaves[i]->count;
             }
+            else
+            {
+               delete leaves[i];
+                leaves[i]=nullptr;
+            }
         }
         
         //write bytes number appeared in the text, byte symbol, position in the tree, and the total text size
