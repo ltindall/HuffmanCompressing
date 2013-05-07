@@ -52,6 +52,7 @@ void BitOutputStream::flush()
 {
     if (bufi)
     {
+        buf=buf<<(8-bufi);
         out.put(buf);
         buf=bufi=0;
     }

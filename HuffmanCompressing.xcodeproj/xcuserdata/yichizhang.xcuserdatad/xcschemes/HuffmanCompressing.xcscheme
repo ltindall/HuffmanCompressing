@@ -76,7 +76,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "warandpeace.txt warandpeacecomp.dat"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "binary.dat compressedb.dat"
@@ -88,7 +88,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "empty compressedEmpty"
-            isEnabled = "YES">
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "lotsofA compressdlotsofA"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
