@@ -60,6 +60,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "justA compressedA"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "synCommands.pdf comsyncom"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -76,7 +80,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "warandpeace.txt warandpeacecomp.dat"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "binary.dat compressedb.dat"

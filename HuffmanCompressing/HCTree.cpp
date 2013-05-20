@@ -61,7 +61,7 @@ void HCTree::build(const vector<int>& freqs)
 
 void HCTree::writeHeader(BitOutputStream& out)
 {
-    byte symbolnumber=0;
+    short symbolnumber=0;
     int textsize=0;
     
     //if the original file is empty don't write anything
@@ -89,6 +89,7 @@ void HCTree::writeHeader(BitOutputStream& out)
         }
         
         //write bytes number appeared in the text, byte symbol, position in the tree, and the total text size
+        out.writeByte((symbolnumber&0xFF00)>>8);
         out.writeByte(symbolnumber);
         printLeaves(root,0,out);
         out.writeInt(textsize);
@@ -98,7 +99,9 @@ void HCTree::writeHeader(BitOutputStream& out)
 int HCTree::readHeader(BitInputStream& in)
 {
     //first read the size of the total bytes being used
-    int size = in.readByte();
+    short size = in.readByte();
+    size=size<<8;
+    size+=in.readByte();
     
     int deepest=0;
     linkedNode* header=nullptr;
